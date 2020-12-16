@@ -13,5 +13,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <br>
+  <ion-title size="large">{{userStatus}}</ion-title>
+
+  <br>
+  <ion-button (click)="Register()">Register</ion-button>
+  <ion-button (click)="Login()">Login</ion-button>
+  <ion-button (click)="Logout()">Logout</ion-button>
 </ion-content>
