@@ -1,3 +1,14 @@
 <div class="tabWrapper">
-  TODO Tab 3
+  <ion-item>
+    <ion-input [(ngModel)]="newOrganizationName" name="organization" placeholder="Enter new organization name..."></ion-input>
+    <ion-icon class="pointer" color="primary" (click)="CreateOrganization()" name="bag-add-outline"></ion-icon>
+  </ion-item>
+  <br>
+  <ion-list>
+    <ion-item *ngFor="let organization of organizations">
+      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.name)">{{organization.name}}</ion-label>
+      <ion-icon class="pointer" color="primary" (click)="DeleteOrganization(organization.name)" name="trash-outline"></ion-icon>
+      <!-- sau icon de leave in caz ca e doar membru -->
+    </ion-item>
+  </ion-list>
 </div>
