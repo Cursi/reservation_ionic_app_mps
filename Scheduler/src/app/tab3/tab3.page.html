@@ -4,11 +4,20 @@
     <ion-icon class="pointer" color="primary" (click)="CreateOrganization()" name="bag-add-outline"></ion-icon>
   </ion-item>
   <br>
+  <h3>Owned organizations</h3>
   <ion-list>
-    <ion-item *ngFor="let organization of organizations">
-      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.name)">{{organization.name}}</ion-label>
-      <ion-icon class="pointer" color="primary" (click)="DeleteOrganization(organization.name)" name="trash-outline"></ion-icon>
-      <!-- sau icon de leave in caz ca e doar membru -->
+    <ion-item [hidden]="organization.ownerEmail !== dbService.userEmail" *ngFor="let organization of userOrganizations">
+      <ion-icon class="organizationIcon" name="briefcase-outline"></ion-icon>
+      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.key)">{{organization.name}}</ion-label>
+      <ion-icon class="pointer" (click)="DeleteOrganization(organization.key)" color="primary" name="trash-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <h3>Member organizations</h3>
+  <ion-list>
+    <ion-item [hidden]="organization.ownerEmail === dbService.userEmail" *ngFor="let organization of userOrganizations">
+      <ion-icon class="organizationIcon" name="briefcase-outline"></ion-icon>
+      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.key)">{{organization.name}}</ion-label>
+      <ion-icon class="pointer" color="primary" (click)="LeaveOrganization(organization.key)" name="log-out-outline"></ion-icon>
     </ion-item>
   </ion-list>
 </div>

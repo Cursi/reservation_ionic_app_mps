@@ -24,8 +24,6 @@ export class HeaderComponent implements OnInit
   ngOnInit()
   {
     this.lastRoute = this.router.url;
-    console.log(this.lastRoute);
-    // localStorage.removeItem("userData");
 
     if(localStorage.getItem("userData") !== null)
       this.logOutHidden = false;

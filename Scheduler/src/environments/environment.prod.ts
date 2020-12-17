@@ -4,6 +4,7 @@ export const environment = {
   {
     apiKey: "AIzaSyBn3o2B4foh4HcXh-Zu5QwX7sE6GQkMF1M",
     authDomain: "reservation-ionic-app-mps.firebaseapp.com",
+    databaseURL: "https://reservation-ionic-app-mps-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "reservation-ionic-app-mps",
     storageBucket: "reservation-ionic-app-mps.appspot.com",
     messagingSenderId: "464815316055",

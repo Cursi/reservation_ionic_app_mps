@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { FirebaseDatabaseService } from '../firebase-database.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,74 +9,39 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page 
 {
-  constructor() {}
+  constructor(private dbService: FirebaseDatabaseService) {}
 
   newOrganizationName = "";
-
-  organizations = 
-  [
-    {
-      name: "Org. 1"
-    },
-    {
-      name: "Org. 2"
-    },
-    {
-      name: "Org. 3"
-    },
-    {
-      name: "Org. 4"
-    },
-    {
-      name: "Org. 5"
-    },
-    {
-      name: "Org. 6"
-    },
-    {
-      name: "Org. 7"
-    },
-    {
-      name: "Org. 8"
-    },
-    {
-      name: "Org. 9"
-    },
-    {
-      name: "Org. 10"
-    },
-    // {
-    //   name: "Org. 11"
-    // },
-    // {
-    //   name: "Org. 12"
-    // },
-    // {
-    //   name: "Org. 13"
-    // },
-    // {
-    //   name: "Org. 14"
-    // },
-    // {
-    //   name: "Org. 15"
-    // },
-    // {
-    //   name: "Org. 16"
-    // }
-  ]
-
-  DeleteOrganization(organizationName)
+  userOrganizations = [];
+  
+  ngOnInit()
   {
-    console.log(`To be deleted organization: ${organizationName}`);
+    this.dbService.organizationsObservable.subscribe(data =>
+    {
+      this.userOrganizations = this.dbService.GetUserOrganizations(data);
+    });
+
+    // this.dbService.SimpleTest();
   }
 
-  OpenOrganizationModal(organizationName)
+  DeleteOrganization(organizationKey)
   {
-    console.log(`To be opened a modal for organization: ${organizationName}`);
+    this.dbService.DeleteOrganization(organizationKey);
   }
 
-  CreateOrganization(newOrganizationName)
+  LeaveOrganization(organizationKey)
   {
-    console.log(`To be created the organization: ${this.newOrganizationName}`);
+    this.dbService.LeaveOrganization(organizationKey);
+  }
+
+  OpenOrganizationModal(organizationKey)
+  {
+    console.log(`To be opened a modal for organization: ${organizationKey}`);
+  }
+
+  async CreateOrganization()
+  {
+    if(await this.dbService.AddOrganization(this.newOrganizationName))
+      this.newOrganizationName = "";
   }
 }
