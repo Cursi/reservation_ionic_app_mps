@@ -1,0 +1,22 @@
+<div id="pageWrapper">
+  <ion-icon id="welcomeIcon" class="centered" name="calendar-outline"></ion-icon>
+  <div id="welcomeMessage" class="centered">
+    Welcome to <strong>Scheduler</strong>!
+  </div>
+  <div id="welcomeDescription" class="centered">
+    Organization resources management, starting with us...
+  </div>
+
+  <form class="centered" #form="ngForm">
+    <div>
+      <ion-item>
+        <ion-input [(ngModel)]="user.email" name="email" type="email" placeholder="Enter your email..."></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="user.password" name="password" type="password" placeholder="Enter your password..."></ion-input>
+      </ion-item>
+    </div>
+      <ion-button id="submitButton" color="dark" (click)="SubmitAuth()">{{submitType}}</ion-button>
+      <div id="switchButton" [innerHTML]="switchText" (click)="SwitchAuth()"></div>
+  </form>
+</div>

@@ -1,0 +1,49 @@
+.centered
+{
+    margin: auto;
+    text-align: center;
+    width: 90%;
+}
+
+#welcomeMessage
+{
+    font-size: 28px;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+#welcomeDescription
+{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+#welcomeIcon
+{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 72px;
+    width: 100%;
+}
+
+#submitButton
+{
+    margin-top: 15px;
+    float: right;
+}
+
+#pageWrapper
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+#switchButton
+{
+    margin-top: 80px;
+    cursor: pointer;
+    clear: right;
+}

@@ -24,3 +24,13 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+body
+{
+    letter-spacing: 1px;
+}
+
+.item-has-focus
+{
+    --highlight-background: #000000;
+}
