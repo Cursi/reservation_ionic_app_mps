@@ -15,8 +15,8 @@ export class HomePage implements OnInit
   private errorToast: any;
   submitType = "Login"
   
-  loginText = "Already have an account? Switch to <strong>login</strong>!";
-  registerText = "Don't have an account? Switch to <strong>register</strong>!";
+  loginText = "Already have an account? Switch to <strong class='primaryColor'>login</strong>!";
+  registerText = "Don't have an account? Switch to <strong class='primaryColor'>register</strong>!";
 
   switchText = this.registerText;
 

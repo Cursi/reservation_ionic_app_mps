@@ -1,7 +1,7 @@
 <div id="pageWrapper">
-  <ion-icon id="welcomeIcon" class="centered" name="calendar-outline"></ion-icon>
+  <ion-icon color="primary" id="welcomeIcon" class="centered" name="calendar-outline"></ion-icon>
   <div id="welcomeMessage" class="centered">
-    Welcome to <strong>Scheduler</strong>!
+    Welcome to <strong class="primaryColor">Scheduler</strong>!
   </div>
   <div id="welcomeDescription" class="centered">
     Organization resources management, starting with us...
@@ -16,7 +16,7 @@
         <ion-input [(ngModel)]="user.password" name="password" type="password" placeholder="Enter your password..."></ion-input>
       </ion-item>
     </div>
-      <ion-button id="submitButton" color="dark" (click)="SubmitAuth()">{{submitType}}</ion-button>
-      <div id="switchButton" [innerHTML]="switchText" (click)="SwitchAuth()"></div>
+      <ion-button id="submitButton" (click)="SubmitAuth()">{{submitType}}</ion-button>
+      <div id="switchButton" class="noselect" [innerHTML]="switchText" (click)="SwitchAuth()"></div>
   </form>
 </div>

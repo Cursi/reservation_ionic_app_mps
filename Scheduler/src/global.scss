@@ -30,7 +30,25 @@ body
     letter-spacing: 1px;
 }
 
+.primaryColor
+{
+    color: #3880ff;
+}
+
 .item-has-focus
 {
-    --highlight-background: #000000;
+    --highlight-background: #3880ff;
+}
+
+.noselect 
+{
+    user-select: none;
+}
+
+.tabWrapper
+{
+    margin-top: 70px;
+    width: 90%;
+    margin-left: 5%;
+    text-align: center;
 }
