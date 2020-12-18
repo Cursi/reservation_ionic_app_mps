@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseAuthService } from '../firebase-auth.service';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastService } from '../toast.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,12 @@ import { ToastController } from '@ionic/angular';
 })
 export class HomePage implements OnInit
 {
-  constructor(private firebaseAuthService: FirebaseAuthService, private router: Router, private toast: ToastController) { }
+  constructor
+  (
+    private firebaseAuthService: FirebaseAuthService, 
+    private router: Router, 
+    private toastService: ToastService
+  ) { }
 
   private errorToast: any;
   submitType = "Login"
@@ -42,7 +47,7 @@ export class HomePage implements OnInit
           this.router.navigateByUrl("/tabs");
         }
         else
-          this.ShowErrorToast("Couldn't create the account!");
+          this.toastService.ShowToast("Couldn't create the account!");
       });
     }
     else if(this.submitType === "Login")
@@ -55,7 +60,7 @@ export class HomePage implements OnInit
           this.router.navigateByUrl("/tabs");
         }
         else
-          this.ShowErrorToast("Couldn't login!");
+        this.toastService.ShowToast("Couldn't login!");
       });
     }
   }
@@ -72,14 +77,5 @@ export class HomePage implements OnInit
       this.submitType = "Register";
       this.switchText = this.loginText;
     }
-  }
-
-  ShowErrorToast(errorMessage) 
-  {
-    this.errorToast = this.toast.create
-    ({
-      message: errorMessage,
-      duration: 1500
-    }).then((toastData) => toastData.present()); 
   }
 }

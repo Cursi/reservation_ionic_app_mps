@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { FirebaseDatabaseService } from '../firebase-database.service';
 
 @Component({

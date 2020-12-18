@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class FirebaseDatabaseService
   public organizationsObservable: Observable<any[]>;
   public userEmail;
 
-  constructor(public db: AngularFireDatabase) 
+  constructor(public db: AngularFireDatabase, private toastService: ToastService) 
   {
     this.userEmail = JSON.parse(localStorage.getItem("userData")).user.email; 
     this.organizationsObservable = db.list('organizations').snapshotChanges();
@@ -67,7 +68,7 @@ export class FirebaseDatabaseService
   {
     this.db.list(`/organizations/${organizationKey}/members`).snapshotChanges().pipe(first()).toPromise().then(data =>
     {
-      let mappedData = this.MapMembers(data); 
+      let mappedData = this.MapMembers(data);
       let memberKey = mappedData.filter(member => member.email === this.userEmail)[0].key;
       this.db.object(`/organizations/${organizationKey}/members/${memberKey}`).remove();
     });
@@ -103,7 +104,7 @@ export class FirebaseDatabaseService
         return true;
       }
       else
-        console.log("TODO error toast!");
+        this.toastService.ShowToast("Couldn't create this organization!");
   
       return false;
     });
