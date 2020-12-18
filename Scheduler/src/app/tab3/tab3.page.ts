@@ -8,7 +8,7 @@ import { MembersModalPage } from '../members-modal/members-modal.page';
   templateUrl: 'tab3.page.html',
   styleUrls: ['tab3.page.scss']
 })
-export class Tab3Page 
+export class Tab3Page
 {
   constructor(private dbService: FirebaseDatabaseService, private modalController: ModalController) {}
 
@@ -21,6 +21,8 @@ export class Tab3Page
     {
       this.userOrganizations = this.dbService.GetUserOrganizations(data);
     });
+
+    // this.dbService.AddSchedule();
   }
 
   DeleteOrganization(organizationKey)

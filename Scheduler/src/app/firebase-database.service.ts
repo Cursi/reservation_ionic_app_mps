@@ -148,4 +148,15 @@ export class FirebaseDatabaseService
       "permission": newMemberPermission
     });
   }
+
+  AddSchedule()
+  {
+    this.db.list("/schedules").push({
+      "organizationName": "ORG1",
+      "resourceName": "R2",
+      "startTimestamp": 30,
+      "endTimestamp": 70,
+      "reason": "Bla, bla, bla 3",
+    });
+  }
 }
