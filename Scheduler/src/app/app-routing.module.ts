@@ -10,6 +10,10 @@ const routes: Routes =
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'members-modal',
+    loadChildren: () => import('./members-modal/members-modal.module').then( m => m.MembersModalPageModule)
   }
 ];
 

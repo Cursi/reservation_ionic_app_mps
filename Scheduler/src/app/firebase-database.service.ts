@@ -60,7 +60,6 @@ export class FirebaseDatabaseService
 
   DeleteOrganization(organizationKey)
   {
-    console.log(organizationKey);
     this.db.object(`/organizations/${organizationKey}`).remove();
   }
 
@@ -74,16 +73,6 @@ export class FirebaseDatabaseService
     });
   }
 
-  // De aici plecam cu aduagatul de membri noi
-  SimpleTest()
-  {
-    this.db.list('organizations/-MOmQxF13UncZpqrGjho/members').push
-    ({
-      "email": "test2@something.com",
-      "permission": "read"
-    });
-  }
-
   AddOrganization(newOrganizationName)
   {
     let organizationExists = 1;
@@ -93,7 +82,7 @@ export class FirebaseDatabaseService
       organizationExists = (this.MapOrganizations(data).filter(organization => organization.name === newOrganizationName)).length;
     }).then(() =>
     {
-      if(newOrganizationName && !organizationExists)
+      if(newOrganizationName.trim().length !== 0 && !organizationExists)
       {
         this.db.list('organizations').push
         ({
@@ -107,6 +96,56 @@ export class FirebaseDatabaseService
         this.toastService.ShowToast("Couldn't create this organization!");
   
       return false;
+    });
+  }
+
+  GetOrganizationMembersObservable(organizationKey)
+  {
+    return this.db.list(`/organizations/${organizationKey}/members`).snapshotChanges();
+  }
+
+  GetOrganizationMembers(data)
+  {  
+    return this.MapMembers(data);
+  }
+
+  AddMember(organizationKey, newMemberEmail)
+  {
+    let memberExists = 1;
+
+    return this.db.list(`/organizations/${organizationKey}/members`).snapshotChanges().pipe(first()).toPromise().then(data =>
+    {
+      memberExists = (this.MapMembers(data).filter(member => member.email === newMemberEmail)).length;
+
+      if(newMemberEmail.trim().length !== 0 && !memberExists)
+      {
+        this.db.list(`/organizations/${organizationKey}/members`).push
+        ({
+          "email": newMemberEmail,
+          "permission": "read"
+        });
+  
+        return true;
+      }
+      else
+        this.toastService.ShowToast("Couldn't add this member!");
+
+      return false;
+    });
+  }
+
+  DeleteMember(organizationKey, memberKey)
+  {
+    console.log(organizationKey + " " + memberKey);
+    this.db.object(`/organizations/${organizationKey}/members/${memberKey}`).remove();
+  }
+
+  EditMemberPermission(organizationKey, memberEmail, memberKey, newMemberPermission)
+  {
+    this.db.object(`/organizations/${organizationKey}/members/${memberKey}`).set
+    ({
+      "email": memberEmail,
+      "permission": newMemberPermission
     });
   }
 }

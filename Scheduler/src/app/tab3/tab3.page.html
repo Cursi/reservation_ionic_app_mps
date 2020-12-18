@@ -8,7 +8,7 @@
   <ion-list>
     <ion-item [hidden]="organization.ownerEmail !== dbService.userEmail" *ngFor="let organization of userOrganizations">
       <ion-icon class="organizationIcon" name="briefcase-outline"></ion-icon>
-      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.key)">{{organization.name}}</ion-label>
+      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.key, true)">{{organization.name}}</ion-label>
       <ion-icon class="pointer" (click)="DeleteOrganization(organization.key)" color="primary" name="trash-outline"></ion-icon>
     </ion-item>
   </ion-list>
@@ -16,7 +16,7 @@
   <ion-list>
     <ion-item [hidden]="organization.ownerEmail === dbService.userEmail" *ngFor="let organization of userOrganizations">
       <ion-icon class="organizationIcon" name="briefcase-outline"></ion-icon>
-      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.key)">{{organization.name}}</ion-label>
+      <ion-label class="pointer" (click)="OpenOrganizationModal(organization.key, false)">{{organization.name}}</ion-label>
       <ion-icon class="pointer" color="primary" (click)="LeaveOrganization(organization.key)" name="log-out-outline"></ion-icon>
     </ion-item>
   </ion-list>

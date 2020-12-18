@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseDatabaseService } from '../firebase-database.service';
+import { ModalController } from '@ionic/angular';
+import { MembersModalPage } from '../members-modal/members-modal.page';
 
 @Component({
   selector: 'app-tab3',
@@ -8,7 +10,7 @@ import { FirebaseDatabaseService } from '../firebase-database.service';
 })
 export class Tab3Page 
 {
-  constructor(private dbService: FirebaseDatabaseService) {}
+  constructor(private dbService: FirebaseDatabaseService, private modalController: ModalController) {}
 
   newOrganizationName = "";
   userOrganizations = [];
@@ -19,8 +21,6 @@ export class Tab3Page
     {
       this.userOrganizations = this.dbService.GetUserOrganizations(data);
     });
-
-    // this.dbService.SimpleTest();
   }
 
   DeleteOrganization(organizationKey)
@@ -33,9 +33,20 @@ export class Tab3Page
     this.dbService.LeaveOrganization(organizationKey);
   }
 
-  OpenOrganizationModal(organizationKey)
+  async OpenOrganizationModal(organizationKey, isOwner)
   {
-    console.log(`To be opened a modal for organization: ${organizationKey}`);
+    const modal = await this.modalController.create
+    ({
+      component: MembersModalPage,
+      componentProps: 
+      {
+        "organizationKey": organizationKey,
+        "isOwner": isOwner
+      }
+    });
+
+    await modal.present();
+
   }
 
   async CreateOrganization()
