@@ -1,0 +1,41 @@
+.card
+{
+    text-align: left;
+}
+
+.cardTitle
+{
+    text-align: left;
+    font-size: 22px;
+}
+
+.statusIcon
+{
+    font-size: 24px;
+}
+
+.timeContainer
+{
+    text-align: right;
+}
+
+.deleteSchedule
+{
+    float: right;
+}
+
+.resourceName
+{
+    position: absolute;
+    top: 0px
+}
+
+.resourceNameAvailable
+{
+    left: 30px;
+}
+
+.resourceNameBusy
+{
+    left: 35px;
+}

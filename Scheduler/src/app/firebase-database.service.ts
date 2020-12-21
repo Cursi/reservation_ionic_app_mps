@@ -40,6 +40,21 @@ export class FirebaseDatabaseService
     })); 
   }
 
+  MapSchedules(data)
+  {
+    return data.map(data => Object
+    ({
+      "key": data.payload.key,
+      "userEmail": data.payload.val().userEmail,
+      "organizationName": data.payload.val().organizationName,
+      "resourceName": data.payload.val().resourceName,
+      "reservationReason": data.payload.val().reservationReason,
+      "startTime": new Date(data.payload.val().startTimestamp).toLocaleString().replace(/:\d\d ([AP]M)/i, " $1"),
+      "endTime": new Date(data.payload.val().endTimestamp).toLocaleString().replace(/:\d\d ([AP]M)/i, " $1"),
+      "status": Date.parse(new Date().toString()) > data.payload.val().endTimestamp ? "available" : "busy",
+    }));
+  }
+
   GetUserOrganizations(data)
   {
     let mappedData = this.MapOrganizations(data);
@@ -55,7 +70,20 @@ export class FirebaseDatabaseService
       }
     });
 
-    return ownedOrganizations ? ownedOrganizations.concat(memberOrganizations) : null;
+    return [].concat(ownedOrganizations).concat(memberOrganizations);
+  }
+
+  GetUserWritableOrganizations(data)
+  {
+    let userOrganizations = this.GetUserOrganizations(data);
+    let ownedOrganizations = userOrganizations.filter(organization => organization.ownerEmail === this.userEmail);
+    let memberOrganizations = userOrganizations.filter(organization => organization.ownerEmail !== this.userEmail).filter(organization =>
+    {
+      let membersArray = Object.keys(organization.members).map((key) => organization.members[key]);
+      return membersArray.filter(member => member.email === this.userEmail && member.permission === "write").length !== 0;
+    });
+    
+    return [].concat(ownedOrganizations).concat(memberOrganizations);
   }
 
   DeleteOrganization(organizationKey)
@@ -149,14 +177,26 @@ export class FirebaseDatabaseService
     });
   }
 
-  AddSchedule()
+  AddSchedule(scheduledResource)
   {
-    this.db.list("/schedules").push({
-      "organizationName": "ORG1",
-      "resourceName": "R2",
-      "startTimestamp": 30,
-      "endTimestamp": 70,
-      "reason": "Bla, bla, bla 3",
+    this.db.list("/schedules").push(scheduledResource);
+  }
+
+  GetSchedulesObservable()
+  {
+    return this.db.list(`/schedules`).snapshotChanges();
+  }
+
+  GetOrganizationSchedules(organizationName)
+  {
+    return this.db.list("/schedules").snapshotChanges().pipe(first()).toPromise().then(data =>
+    {
+      return this.MapSchedules(data).filter(schedule => schedule.organizationName === organizationName);
     });
+  }
+
+  DeleteSchedule(scheduleKey)
+  {
+    this.db.object(`/schedules/${scheduleKey}`).remove();
   }
 }

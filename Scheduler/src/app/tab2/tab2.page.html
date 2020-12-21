@@ -15,19 +15,12 @@
 
   <ion-item>
     <ion-label>Start:</ion-label>
-    <ion-datetime displayFormat="MM DD YY hh:mm" placeholder="Select date and time"></ion-datetime>
+    <ion-datetime [(ngModel)]="startDatetime" displayFormat="MMM DD, YYYY HH:mm" placeholder="Select date and time"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-label>End:</ion-label>
-    <ion-datetime displayFormat="MM DD YY hh:mm" placeholder="Select date and time"></ion-datetime>
+    <ion-datetime [(ngModel)]="endDatetime" displayFormat="MMM DD, YYYY HH:mm" placeholder="Select date and time"></ion-datetime>
   </ion-item>
 
   <ion-button id="scheduleButton" (click)="ScheduleResource()">Schedule</ion-button>
-
-  <div id="TODO">
-    TODO:<br>
-    - De luat doar organizatiile in care e owner sau are drept de write.<br>
-    - De luat datele din input-uri.<br>
-    - De inserat in database doar daca nu e deja folosita resourceName in intervalul dorit.<br>
-  </div>
 </div>

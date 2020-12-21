@@ -1,8 +1,28 @@
 <div class="tabWrapper">
-  <div id="TODO">
-    TODO:<br>
-    - De folosit dropdown-ul din tab-ul de schedule pentru select organization.<br>
-    - De facut un UI pentru fiecare scheduled resource.<br>
-    - De facut un ngFor cu resursele organizatiei cand se face ionChange.<br>
-  </div>
+  <ion-item>
+    <ion-label>Organization:</ion-label>
+    <ion-select placeholder="Select org." okText="Ok" cancelText="Cancel" [(ngModel)]="selectedValue" (ionChange)="SelectOrganization(selectedValue)">
+      <ion-select-option *ngFor="let organization of userOrganizations" [value]="organization">{{organization.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-card class="card" *ngFor="let schedule of schedules">
+    <ion-card-header>
+      <ion-card-title class="cardTitle">
+        <ion-icon [hidden]="schedule.status === 'busy'" class="statusIcon" name="cloud-done-outline"></ion-icon>
+        <ion-icon [hidden]="schedule.status === 'available'" class="statusIcon" name="hourglass-outline"></ion-icon>
+        <span [hidden]="schedule.status === 'available'" class="resourceName resourceNameAvailable">{{schedule.resourceName}}</span>
+        <span [hidden]="schedule.status === 'busy'" class="resourceName resourceNameBusy">{{schedule.resourceName}}</span>
+        <ion-icon [hidden]="dbService.userEmail !== schedule.userEmail" (click)="DeleteSchedule(schedule.key)" class="pointer deleteSchedule" color="primary" name="trash-outline"></ion-icon>
+      </ion-card-title>
+      <ion-card-subtitle>Scheduled by <strong>{{schedule.userEmail}}</strong></ion-card-subtitle>
+      <ion-card-subtitle>In organization <strong>{{schedule.organizationName}}</strong></ion-card-subtitle>
+      <ion-card-subtitle>Reason <strong>{{schedule.reservationReason}}</strong></ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content class="timeContainer">
+      <div>Start at <strong>{{schedule.startTime}}</strong></div>
+      <div>End at <strong>{{schedule.endTime}}</strong></div>
+    </ion-card-content>
+  </ion-card>
 </div>
