@@ -35,15 +35,10 @@ export class Tab2Page
 
   ResetScheduleInputs()
   {
-    this.scheduledResource = 
-    {
-      "organizationName": "",
-      "resourceName": "",
-      "reservationReason": "",
-      "startTimestamp": 0,
-      "endTimestamp": 0,
-      "userEmail": this.dbService.userEmail
-    };
+    this.scheduledResource.resourceName = ""; 
+    this.scheduledResource.reservationReason = ""; 
+    this.scheduledResource.startTimestamp = 0; 
+    this.scheduledResource.endTimestamp = 0;
 
     this.startDatetime = "";
     this.endDatetime = "";
@@ -54,31 +49,13 @@ export class Tab2Page
     this.scheduledResource.organizationName = selectedValue.name;
   }
 
-  SelectStartTimestamp(selectedStartValue)
+  async ScheduleResource()
   {
-    console.log(selectedStartValue);
-  }
-
-  AreValidValues()
-  {
-    return this.scheduledResource.organizationName.length !== 0 &&
-      this.scheduledResource.resourceName.length !== 0 &&
-      this.scheduledResource.reservationReason.length !== 0 &&
-      (new Date(this.scheduledResource.startTimestamp)).getTime() > 0 &&
-      (new Date(this.scheduledResource.endTimestamp)).getTime() > 0 &&
-      this.scheduledResource.endTimestamp >= this.scheduledResource.startTimestamp; 
-  }
-
-  ScheduleResource()
-  {
-    this.scheduledResource.startTimestamp = Date.parse(this.startDatetime); 
+    this.scheduledResource.startTimestamp = Date.parse(this.startDatetime);
     this.scheduledResource.endTimestamp = Date.parse(this.endDatetime);
     
-    if(this.AreValidValues())
-    {
-      this.dbService.AddSchedule(this.scheduledResource);
+    if(await this.dbService.AddSchedule(this.scheduledResource))
       this.ResetScheduleInputs();
-    }
     else
       this.toastService.ShowToast("Couldn't add this schedule!");
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { ToastService } from './toast.service';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class FirebaseDatabaseService
     })); 
   }
 
-  MapSchedules(data)
+  MapSchedules(data, isDummyMap)
   {
     return data.map(data => Object
     ({
@@ -49,8 +49,8 @@ export class FirebaseDatabaseService
       "organizationName": data.payload.val().organizationName,
       "resourceName": data.payload.val().resourceName,
       "reservationReason": data.payload.val().reservationReason,
-      "startTime": new Date(data.payload.val().startTimestamp).toLocaleString().replace(/:\d\d ([AP]M)/i, " $1"),
-      "endTime": new Date(data.payload.val().endTimestamp).toLocaleString().replace(/:\d\d ([AP]M)/i, " $1"),
+      "startTime": isDummyMap ? data.payload.val().startTimestamp : new Date(data.payload.val().startTimestamp).toLocaleString().replace(/:\d\d ([AP]M)/i, " $1"),
+      "endTime": isDummyMap ? data.payload.val().endTimestamp : new Date(data.payload.val().endTimestamp).toLocaleString().replace(/:\d\d ([AP]M)/i, " $1"),
       "status": Date.parse(new Date().toString()) > data.payload.val().endTimestamp ? "available" : "busy",
     }));
   }
@@ -164,7 +164,6 @@ export class FirebaseDatabaseService
 
   DeleteMember(organizationKey, memberKey)
   {
-    console.log(organizationKey + " " + memberKey);
     this.db.object(`/organizations/${organizationKey}/members/${memberKey}`).remove();
   }
 
@@ -177,9 +176,35 @@ export class FirebaseDatabaseService
     });
   }
 
+  AreValidValues(scheduledResource)
+  {
+    return scheduledResource.organizationName.length !== 0 &&
+      scheduledResource.resourceName.length !== 0 &&
+      scheduledResource.reservationReason.length !== 0 &&
+      (new Date(scheduledResource.startTimestamp)).getTime() > 0 &&
+      (new Date(scheduledResource.endTimestamp)).getTime() > 0 &&
+      scheduledResource.endTimestamp >= scheduledResource.startTimestamp;
+  }
+
   AddSchedule(scheduledResource)
   {
-    this.db.list("/schedules").push(scheduledResource);
+    return this.GetOrganizationSchedules(scheduledResource.organizationName, true).then(data =>
+    {
+      let nameFilteredData = data.filter(schedule => scheduledResource.resourceName === schedule.resourceName);
+      let datetimeFilteredData = nameFilteredData.filter(schedule =>
+      {
+        return (scheduledResource.startTimestamp < schedule.startTime && scheduledResource.endTimestamp < schedule.endTime) ||
+        (scheduledResource.startTimestamp > schedule.startTime && scheduledResource.endTimestamp > schedule.endTime)
+      });
+
+      if(this.AreValidValues(scheduledResource) && nameFilteredData.length === datetimeFilteredData.length)
+      {
+        this.db.list("/schedules").push(scheduledResource);
+        return true;
+      }
+
+      return false;
+    });
   }
 
   GetSchedulesObservable()
@@ -187,11 +212,11 @@ export class FirebaseDatabaseService
     return this.db.list(`/schedules`).snapshotChanges();
   }
 
-  GetOrganizationSchedules(organizationName)
+  GetOrganizationSchedules(organizationName, isDummyMap=false)
   {
     return this.db.list("/schedules").snapshotChanges().pipe(first()).toPromise().then(data =>
     {
-      return this.MapSchedules(data).filter(schedule => schedule.organizationName === organizationName);
+      return this.MapSchedules(data, isDummyMap).filter(schedule => schedule.organizationName === organizationName);
     });
   }
 

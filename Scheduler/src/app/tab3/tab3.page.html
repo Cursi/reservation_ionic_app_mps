@@ -3,7 +3,6 @@
     <ion-input [(ngModel)]="newOrganizationName" name="organization" placeholder="Enter new organization name..."></ion-input>
     <ion-icon class="pointer" color="primary" (click)="CreateOrganization()" name="bag-add-outline"></ion-icon>
   </ion-item>
-  <br>
   <h3>Owned organizations</h3>
   <ion-list>
     <ion-item [hidden]="organization.ownerEmail !== dbService.userEmail" *ngFor="let organization of userOrganizations">
