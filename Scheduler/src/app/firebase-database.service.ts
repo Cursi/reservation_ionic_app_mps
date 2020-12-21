@@ -137,6 +137,11 @@ export class FirebaseDatabaseService
     return this.MapMembers(data);
   }
 
+  IsValidEmail(email) 
+  {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
   AddMember(organizationKey, newMemberEmail)
   {
     let memberExists = 1;
@@ -145,7 +150,7 @@ export class FirebaseDatabaseService
     {
       memberExists = (this.MapMembers(data).filter(member => member.email === newMemberEmail)).length;
 
-      if(newMemberEmail.trim().length !== 0 && !memberExists)
+      if(this.IsValidEmail(newMemberEmail) && !memberExists)
       {
         this.db.list(`/organizations/${organizationKey}/members`).push
         ({

@@ -39,8 +39,6 @@ export class HomePage implements OnInit
     {
       this.firebaseAuthService.Register(this.user).then(responseUser =>
       {
-        console.log(responseUser);
-  
         if(responseUser !== null)
         {
           localStorage.setItem("userData", JSON.stringify(responseUser));
