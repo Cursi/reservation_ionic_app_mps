@@ -1,4 +1,8 @@
 # Reservation App
+ ## Table of contents
+ * [Description](#description)
+ * [Technologies](#technologies)
+ * [Setup](#setup)
  ## Description
  This is an University Project whose purpose is to develop a web application which create and manage reservation timelines for any kind of organization resources in several clicks.
  ## Technologies
