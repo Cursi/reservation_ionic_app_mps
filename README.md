@@ -1,8 +1,11 @@
 # Reservation App
  ## Table of contents
- * [Description](#description)
- * [Technologies](#technologies)
- * [Setup](#setup)
+ - [Description](#description)
+ - [Technologies](#technologies)
+ - [Setup](#setup)
+ - [Functionalities](#functionalities)
+   - [Register-user](#register-user)
+ 
  ## Description
  This is an University Project whose purpose is to develop a web application which create and manage reservation timelines for any kind of organization resources in several clicks.
  ## Technologies
@@ -29,5 +32,7 @@
  ```
  ## Functionalities
  ### Register user
+ ![](Readme%20Images/registerUser.gif)
  
- 
+### Create organization
+![](Readne%20Images/createOrganization.gif)
