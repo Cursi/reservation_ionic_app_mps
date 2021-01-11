@@ -27,4 +27,7 @@
  ```
  $ ionic capacitor run android
  ```
+ ## Functionalities
+ ### Register user
+ 
  
