@@ -35,4 +35,4 @@
  ![](Readme%20Images/registerUser.gif)
  
 ### Create organization
-![](Readne%20Images/createOrganization.gif)
+![](Readme%20Images/createOrganization.gif)
