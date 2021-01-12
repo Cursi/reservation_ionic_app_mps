@@ -35,10 +35,15 @@
  $ npm install
  $ ionic serve
  ```
- Build for android
+ Build for Android
  ```
  $ ionic capacitor run android
  ```
+ Build for iOS
+ ```
+ $ ionic capacitor run ios
+ ```
+
  ## Functionalities
  ### Register user
  Validations:
