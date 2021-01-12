@@ -7,6 +7,7 @@
    - [Register-user](#register-user)
    - [Create-organization](#create-organization)
    - [Reserve-resource](#reserve-resource)
+   - [Add-member-to-an-organization](#add-member-to-an-organization)
   - [Implementation-details](#implementation-details)
     - [Ionic-fundamentals](#ionic-fundamentals)
     - [Home-screen](#home-screen)
@@ -58,6 +59,14 @@ Validations:
  * Start date must be in the future
 
 ![](Readme%20Images/reserveResource.gif)
+
+### Add member to an organization
+Validations:
+  * The user need to be the owner of the organization
+ 
+![](Readme%20Images/addMember.gif)
+ 
+ 
 
 ## Implementation details
 ### Ionic fundamentals
