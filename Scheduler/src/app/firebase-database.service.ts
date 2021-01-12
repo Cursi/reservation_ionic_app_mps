@@ -198,7 +198,7 @@ export class FirebaseDatabaseService
       let nameFilteredData = data.filter(schedule => scheduledResource.resourceName === schedule.resourceName);
       let datetimeFilteredData = nameFilteredData.filter(schedule =>
       {
-        return (scheduledResource.startTimestamp < schedule.startTime && scheduledResource.endTimestamp < schedule.endTime) ||
+        return (scheduledResource.startTimestamp <= schedule.startTime && scheduledResource.endTimestamp <= schedule.endTime) ||
         (scheduledResource.startTimestamp > schedule.startTime && scheduledResource.endTimestamp > schedule.endTime)
       });
 
