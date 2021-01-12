@@ -37,16 +37,21 @@ export class HomePage implements OnInit
   {
     if(this.submitType === "Register")
     {
-      this.firebaseAuthService.Register(this.user).then(responseUser =>
+      if(this.user.email.trim().length !== 0 && this.user.password.trim().length !== 0)
       {
-        if(responseUser !== null)
+        this.firebaseAuthService.Register(this.user).then(responseUser =>
         {
-          localStorage.setItem("userData", JSON.stringify(responseUser));
-          this.router.navigateByUrl("/tabs");
-        }
-        else
-          this.toastService.ShowToast("Couldn't create the account!");
-      });
+          if(responseUser !== null)
+          {
+            localStorage.setItem("userData", JSON.stringify(responseUser));
+            this.router.navigateByUrl("/tabs");
+          }
+          else
+            this.toastService.ShowToast("Couldn't create the account!");
+        });
+      }
+      else
+        this.toastService.ShowToast("Couldn't create the account!");
     }
     else if(this.submitType === "Login")
     {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { FirebaseAuthService } from '../firebase-auth.service';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import { FirebaseAuthService } from '../firebase-auth.service';
 })
 export class HeaderComponent implements OnInit 
 {
-  constructor(private firebaseAuthService: FirebaseAuthService, private router: Router) 
+  constructor(private firebaseAuthService: FirebaseAuthService, private router: Router, private navCtrl: NavController) 
   {
     this.router.events.subscribe((event: Event) => 
     {
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit
     this.firebaseAuthService.Logout().then(() => 
     {
       this.logOutHidden = true;
-      this.router.navigateByUrl("");
+      this.router.navigateByUrl("").then(() => location.reload());
     });
   }
 }

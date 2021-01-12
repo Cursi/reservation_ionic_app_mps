@@ -184,8 +184,8 @@ export class FirebaseDatabaseService
   AreValidValues(scheduledResource)
   {
     return scheduledResource.organizationName.length !== 0 &&
-      scheduledResource.resourceName.length !== 0 &&
-      scheduledResource.reservationReason.length !== 0 &&
+      scheduledResource.resourceName.trim().length !== 0 &&
+      scheduledResource.reservationReason.trim().length !== 0 &&
       (new Date(scheduledResource.startTimestamp)).getTime() > 0 &&
       (new Date(scheduledResource.endTimestamp)).getTime() > 0 &&
       scheduledResource.endTimestamp >= scheduledResource.startTimestamp;
@@ -198,8 +198,8 @@ export class FirebaseDatabaseService
       let nameFilteredData = data.filter(schedule => scheduledResource.resourceName === schedule.resourceName);
       let datetimeFilteredData = nameFilteredData.filter(schedule =>
       {
-        return (scheduledResource.startTimestamp <= schedule.startTime && scheduledResource.endTimestamp <= schedule.endTime) ||
-        (scheduledResource.startTimestamp > schedule.startTime && scheduledResource.endTimestamp > schedule.endTime)
+        return (scheduledResource.startTimestamp < schedule.startTime && scheduledResource.endTimestamp <= schedule.startTime) ||
+        (scheduledResource.startTimestamp >= schedule.endTime && scheduledResource.endTimestamp >= schedule.endTime);
       });
 
       if(this.AreValidValues(scheduledResource) && nameFilteredData.length === datetimeFilteredData.length)
