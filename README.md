@@ -11,6 +11,9 @@
    - [Add-member-to-an-organization](#add-member-to-an-organization)
   - [Implementation-details](#implementation-details)
     - [Ionic-fundamentals](#ionic-fundamentals)
+    - [Firebase-fundamentals](#firebase-fundamentals)
+    - [Data-structure](#data-structure)
+      - [Organizations-object](#organizations-object)
     - [Home-screen](#home-screen)
     - [History-tab](#history-tab)
     - [Schedule-tab](#schedule-tab)
@@ -88,6 +91,31 @@ Validations:
 * Components allow you to quickly construct an interface for your app.
 * Ionic comes with a number of components, including modals, popups, and cards
 * For further details, visit: https://ionicframework.com/docs/v3/components/#overview
+
+### Firebase fundamentals
+* To store the data we used Firebase
+* Firebase is a real-time NoSql Backend as a Service
+* It is a key/value store which look like document database
+* Is a URL-oriented where there is a unique URL for each piece of data
+
+### Data structure
+* All data was stored using a JSON tree
+* When we added data to this JSON tree, it automatically become a node in the existing JSON structure with an associated key.
+* We defined 2 main objects:
+  - organizations
+  - schedules
+  
+#### Organizations object
+* Attributes
+  - ID - automatically generated, unique identifier
+  - name - organization name
+  - ownerEmail - key to identify the organization's owner
+  - members - array with all organization's members
+    - email - member's email
+    - permission - __read__  : the member can only see the organization's schedules
+                 , __write__ : the member can define new schedules
+   
+
 ### Home screen
 There are 2 possible options:
  * Login
