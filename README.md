@@ -115,7 +115,7 @@ Validations:
     - email - member's email
     - permission - __read__  : the member can only see the organization's schedules
                  , __write__ : the member can define new schedules
-![](Readme%20Images/img.svg)
+![](Readme%20Images/organizations.PNG)
 
 #### Schedules object
 * Attributes
@@ -126,7 +126,7 @@ Validations:
 - startTimestamp 
 - endTimestamp 
 
-![](Readme%20Images/schedules.png)
+![](Readme%20Images/schedules.PNG)
    
 
 ### Home screen
