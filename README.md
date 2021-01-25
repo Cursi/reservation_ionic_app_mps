@@ -114,6 +114,7 @@ Validations:
     - email - member's email
     - permission - __read__  : the member can only see the organization's schedules
                  , __write__ : the member can define new schedules
+![](Readme%20Images/img.svg)
    
 
 ### Home screen
