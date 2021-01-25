@@ -14,6 +14,7 @@
     - [Firebase-fundamentals](#firebase-fundamentals)
     - [Data-structure](#data-structure)
       - [Organizations-object](#organizations-object)
+      - [Schedules-object](#schedules-object)
     - [Home-screen](#home-screen)
     - [History-tab](#history-tab)
     - [Schedule-tab](#schedule-tab)
@@ -115,6 +116,17 @@ Validations:
     - permission - __read__  : the member can only see the organization's schedules
                  , __write__ : the member can define new schedules
 ![](Readme%20Images/img.svg)
+
+#### Schedules object
+* Attributes
+- ID - automatically generated, unique identifier
+- organization name 
+- reservation reason
+- user email
+- startTimestamp 
+- endTimestamp 
+
+![](Readme%20Images/schedules.png)
    
 
 ### Home screen
