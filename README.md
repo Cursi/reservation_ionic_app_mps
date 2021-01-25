@@ -2,6 +2,7 @@
  ## Table of contents
  - [Description](#description)
  - [Technologies](#technologies)
+ - [Team-members](#team-members)
  - [Setup](#setup)
  - [Functionalities](#functionalities)
    - [Register-user](#register-user)
@@ -17,6 +18,14 @@
  
  ## Description
  This is an University Project whose purpose is to develop a web application which create and manage reservation timelines for any kind of organization resources in several clicks.
+ ## Team members
+ This would have not been possible without implication  of:
+ * Razvan-Mihai Cursaru - Project Manager and Developer
+ * Claudiu Dobos - Developer
+ * Andrei Ungureanu - Tester
+ * Razvan Munteanu - Tester
+ * Stefan Sava - Technical Writer
+ 
  ## Technologies
  Project is created with
  * HTML5
