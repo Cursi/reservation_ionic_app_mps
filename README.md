@@ -137,12 +137,23 @@ There are 2 possible options:
    - Else the app will return a warning message saying that the login didn't work properly
  * Register
    - if the Firebase Auth Service for Register (using the user input credentials) returns false, than an insert with the new credentials is made and the app navigat to targeted URL
+   
 ### History tab
 Presents a list of cards with the resource reservation details filtered by the organization
+A user can see only the organization where it is member
+
 ### Schedule tab
-Represents an insert form for resources. If the entry is valid it will be inserted in the database, otherwise a warning message will be displayed
+Represents an insert form for resources. 
+If the entry is valid it will be inserted in the database, otherwise a warning message will be displayed
+Only members that have __write__ permissions can add a schedule
+
 ### Organization tab
 Presents an editable list with all organizations (Actions possible: Insert and Delete)
+From this table we can edit the organization members
+Actions possible:
+* Add member to an organization
+* Delete member from an organization
+* Give permissions for members (read / write)
   
 
 
