@@ -97,7 +97,6 @@ Validations:
 * To store the data we used Firebase
 * Firebase is a real-time __NoSql__ Backend as a Service
 * It is a key/value store which look like document database
-* Is a URL-oriented where there is a unique URL for each piece of data
 
 ### Data structure
 * All data was stored using a __JSON tree__
